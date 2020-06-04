@@ -1,64 +1,44 @@
-var movingRect,fixedRect
+var car,wall;
+var speed,weight;
+
+
+
 
 
 function setup() {
-  var canvas=createCanvas(800,400);
-   movingRect=createSprite(400, 200, 50, 80);
-   fixedRect=createSprite(400,300,80,50);
-  movingRect.shapeColor="blue"
-  fixedRect.shapeColor="blue"
-  fixedRect.velocityY=-2
-  movingRect.velocityY=2
-
-  
+  createCanvas(1600,400);
+  car=createSprite(50, 200, 50, 50);
+  wall=createSprite(1000,200,60,height/2)
+  wall.shapeColor="grey"
+  speed=random(55,90);
+  weight=random(400,1500);
+  car.velocityX=speed;
+  car.shapeColor="pink"
 }
 
 function draw() {
   background(255,255,255);  
- // movingRect.y=mouseY
-  //movingRect.x=mouseX
-   
-BounceOff();
-    //isTouching();
+  deformity();
   drawSprites();
 }
-function isTouching(){
+function deformity(){
+if(wall.x-car.x< (car.width+wall.width)/2){
 
+
+  car.velocityX=0
+  var deformation=0.5*weight*speed*speed/25509;
+
+if(deformation>180){
+  car.shapeColor="red"
   
-  if(movingRect.y-fixedRect.y<movingRect.height/2+fixedRect.height/2 &&
-    fixedRect.y-movingRect.y< movingRect.height/2+fixedRect.height/2 &&
-    movingRect.x-fixedRect.x<movingRect.width/2+fixedRect.width/2 &&
-    fixedRect.x-movingRect.x<movingRect.width/2+fixedRect.width/2
-   ){
-     movingRect.shapeColor="red"
-     fixedRect.shapeColor="red"
-   
-   }
-   
-   else{
-     movingRect.shapeColor="blue"
-     fixedRect.shapeColor="blue"
-   }
-  }
+}
+if(deformation<180 && deformation>100){
 
-   function BounceOff()
-{
-if(movingRect.y-fixedRect.y<movingRect.height/2+fixedRect.height/2 &&
-  fixedRect.y-movingRect.y< movingRect.height/2+fixedRect.height/2 ){
+car.shapeColor="yellow"
 
-    movingRect.velocityY=movingRect.velocityY*(-1)
-    fixedRect.velocityY=fixedRect.velocityY*(-1)
-  }
-
-if(  movingRect.x-fixedRect.x<movingRect.width/2+fixedRect.width/2 &&
-  fixedRect.x-movingRect.x<movingRect.width/2+fixedRect.width/2){
-
-movingRect.velocityX=movingRect.velocityX*(-1)
-fixedRect.velocityX=fixedRect.velocityX*(-1)
-
-  }
-
-
+}
+if(deformation<100){
+car.shapeColor="green"
 
 }
 
@@ -68,3 +48,14 @@ fixedRect.velocityX=fixedRect.velocityX*(-1)
 
 
 
+
+
+
+
+}
+
+
+
+
+
+}
